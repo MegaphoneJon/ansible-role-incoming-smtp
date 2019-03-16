@@ -40,3 +40,20 @@
     - ipv6
   notify: save iptables
   when: incoming_email == '1'
+
+- name: Install dovecot
+  apt:
+    name: dovecot-imapd
+
+- name: set the 'mydestination' line
+  lineinfile:
+    dest: "{{ postfix_config_file }}"
+    regexp: "^mydestination ="
+    line: "mydestination = $myhostname, localhost, {{ ansible_fqdn }}"
+  notify: restart postfix
+
+- name: Install the dovecot settings file
+  copy:
+    src: files/99-mysettings.conf
+    dest: /etc/dovecot/conf.d
+  notify: restart dovecot
