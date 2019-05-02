@@ -45,12 +45,12 @@
   apt:
     name: dovecot-imapd
 
-- name: set the 'mydestination' line
-  lineinfile:
-    dest: "{{ postfix_config_file }}"
-    regexp: "^mydestination ="
-    line: "mydestination = $myhostname, localhost, {{ ansible_fqdn }}"
-  notify: restart postfix
+#- name: set the 'mydestination' line
+#  lineinfile:
+#    dest: "{{ postfix_config_file }}"
+#    regexp: "^mydestination ="
+#    line: "mydestination = $myhostname, localhost, {{ ansible_fqdn }}"
+#  notify: restart postfix
 
 - name: Install the dovecot settings file
   copy:
