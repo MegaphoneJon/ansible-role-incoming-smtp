@@ -44,6 +44,7 @@
 - name: Install dovecot
   apt:
     name: dovecot-imapd
+  when: incoming_email == '1'
 
 #- name: set the 'mydestination' line
 #  lineinfile:
@@ -56,4 +57,5 @@
   copy:
     src: files/99-mysettings.conf
     dest: /etc/dovecot/conf.d
+  when: incoming_email == '1'
   notify: restart dovecot
